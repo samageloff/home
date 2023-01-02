@@ -45,6 +45,8 @@ const CubeList = memo(
   () => true
 );
 
+CubeList.displayName = "CubeList";
+
 export default function Cubes() {
   const columns = getColumnCount(COUNT);
   const rows = getRowCount(COUNT);
