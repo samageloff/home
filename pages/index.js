@@ -36,7 +36,7 @@ const container = {
 
 const listItem = {
   hidden: { opacity: 0 },
-  show: { opacity: 0.5, ease: [0.17, 0.67, 0.83, 0.67] },
+  show: { opacity: 0.9, ease: [0.17, 0.67, 0.83, 0.67] },
 };
 
 const CubeList = memo(
@@ -145,7 +145,7 @@ export default function Cubes() {
           </Text>
         </VStack>
         <Box
-          height={typeof window !== "undefined" && window.innerHeight * 6755}
+          height={typeof window !== "undefined" && window.innerHeight * 1.25}
           bg="black"
           position="relative"
         >
@@ -161,7 +161,7 @@ export default function Cubes() {
             top="0"
             zIndex="2"
             sx={{
-              "grid-gap": `${yPos / 40}px`,
+              "grid-gap": `${yPos}px`,
             }}
           >
             <CubeList cubeCount={cubeCount} yPos={yPos} />
