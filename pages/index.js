@@ -11,6 +11,7 @@ import {
   Link,
   UnorderedList,
   ListItem,
+  Image,
 } from "@chakra-ui/react";
 import Head from "next/head";
 
@@ -41,7 +42,19 @@ const listItem = {
 const CubeList = memo(
   ({ cubeCount }) => {
     return cubeCount?.map((_, index) => {
-      const odd = index % 2 === 0;
+      if (index === 10) {
+        return (
+          <Box
+            as={motion.li}
+            listStyleType="none"
+            cursor="pointer"
+            key={index}
+            variants={listItem}
+            backgroundImage="url('author.jpg')"
+            backgroundSize="cover"
+          />
+        );
+      }
 
       return (
         <Box
@@ -51,7 +64,6 @@ const CubeList = memo(
           cursor="pointer"
           key={index}
           variants={listItem}
-          zIndex={odd ? 2 : 0}
         />
       );
     });
@@ -119,9 +131,15 @@ export default function Cubes() {
             color="whiteAlpha.600"
           >
             Sam Ageloff
-            <br /> {yPos}
+            <Text as="span" fontSize="md">
+              {yPos === 0 ? "-" : yPos}
+            </Text>
           </Heading>
-          <Text color="whiteAlpha.600" width="100%" fontSize={["auto", "2vw"]}>
+          <Text
+            color="whiteAlpha.600"
+            width="100%"
+            fontSize={["auto", "1.5vw"]}
+          >
             A product and UX-focused software engineer, web developer and
             technical leader, with 20 years experience.
           </Text>
@@ -165,7 +183,7 @@ export default function Cubes() {
               <ListItem
                 as={Link}
                 zIndex={1}
-                href="https://www.linkedin.com/in/samageloff/"
+                href="resume.pdf"
                 target="_blank"
                 color="white"
               >
@@ -174,7 +192,7 @@ export default function Cubes() {
               <ListItem
                 as={Link}
                 zIndex={1}
-                href="resume.pdf"
+                href="https://www.linkedin.com/in/samageloff/"
                 target="_blank"
                 color="white"
               >
