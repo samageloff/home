@@ -119,6 +119,7 @@ export default function Cubes() {
             color="whiteAlpha.600"
           >
             Sam Ageloff
+            <br /> {yPos}
           </Heading>
           <Text color="whiteAlpha.600" width="100%" fontSize={["auto", "2vw"]}>
             A product and UX-focused software engineer, web developer and
@@ -126,14 +127,13 @@ export default function Cubes() {
           </Text>
         </VStack>
         <Box
-          height={typeof window !== "undefined" && window.innerHeight * 5}
+          height={typeof window !== "undefined" && window.innerHeight * 6755}
           bg="black"
           position="relative"
         >
           <SimpleGrid
             columns={columnCount}
             variants={container}
-            spacing={yPos / 40}
             as={motion.ul}
             height="100vh"
             width="100vw"
@@ -142,6 +142,9 @@ export default function Cubes() {
             position="fixed"
             top="0"
             zIndex="2"
+            sx={{
+              "grid-gap": `${yPos / 40}px`,
+            }}
           >
             <CubeList cubeCount={cubeCount} yPos={yPos} />
           </SimpleGrid>
@@ -159,24 +162,24 @@ export default function Cubes() {
               p={2}
               m={0}
             >
-              <Link
-                as={ListItem}
+              <ListItem
+                as={Link}
                 zIndex={1}
                 href="https://www.linkedin.com/in/samageloff/"
                 target="_blank"
                 color="white"
               >
                 Resume
-              </Link>
-              <Link
-                as={ListItem}
+              </ListItem>
+              <ListItem
+                as={Link}
                 zIndex={1}
                 href="resume.pdf"
                 target="_blank"
                 color="white"
               >
                 LinkedIn
-              </Link>
+              </ListItem>
             </UnorderedList>
           </Box>
         </Box>
