@@ -1,207 +1,139 @@
-import { memo, useEffect, useCallback, useState } from "react";
-import { getColumnCount, getRowCount } from "@app/utils";
-import { motion, useScroll } from "framer-motion";
 import {
-  SimpleGrid,
   Box,
-  Text,
-  theme,
+  Container,
+  Flex,
   Heading,
-  VStack,
+  Text,
   Link,
-  UnorderedList,
-  ListItem,
+  VStack,
+  HStack,
+  Tag,
   Image,
 } from "@chakra-ui/react";
 import Head from "next/head";
 
-const COUNT = 124;
-const colors = Object.values(theme.colors);
-const manyRandomColors = () => {
-  const list = colors.map((color) => Object.values(color)).slice(6);
-  const allColors = list.concat([], ...list);
+const expertise = [
+  "Product Design",
+  "UX Engineering",
+  "Frontend Development",
+  "Technical Leadership",
+  "Design Systems",
+  "Web Performance",
+];
 
-  return allColors[Math.floor(Math.random() * allColors.length)];
-};
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.001,
-      staggerDirection: -1,
-    },
-  },
-};
-
-const listItem = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, ease: [0.17, 0.67, 0.83, 0.67] },
-};
-
-const CubeList = memo(
-  ({ cubeCount }) => {
-    return cubeCount?.map((_, index) => {
-      if (index === 10) {
-        return (
-          <Box
-            as={motion.li}
-            listStyleType="none"
-            cursor="pointer"
-            key={index}
-            variants={listItem}
-            backgroundImage="url('author.jpg')"
-            backgroundSize="cover"
-          />
-        );
-      }
-
-      return (
-        <Box
-          as={motion.li}
-          bg={() => manyRandomColors}
-          listStyleType="none"
-          cursor="pointer"
-          key={index}
-          variants={listItem}
-        />
-      );
-    });
-  },
-  () => true
-);
-
-CubeList.displayName = "CubeList";
-
-export default function Cubes() {
-  const columns = getColumnCount(COUNT);
-  const rows = getRowCount(COUNT);
-  const [cubeCount, setCubeCount] = useState();
-  const [columnCount, setColumnCount] = useState(0);
-  const [yPos, setYPos] = useState(0);
-  const { scrollY } = useScroll();
-
-  const handleSetup = useCallback(() => {
-    setColumnCount(columns);
-    setCubeCount([...Array(columns * rows)]);
-  }, [columns, rows]);
-
-  useEffect(() => {
-    window.addEventListener("resize", handleSetup, false);
-
-    return () => window.removeEventListener("resize", handleSetup);
-  }, [columns, rows]);
-
-  useEffect(() => {
-    handleSetup();
-  }, [columns, rows]);
-
-  useEffect(() => {
-    return scrollY.onChange((latest) => {
-      setYPos(parseInt(latest, 10));
-    });
-  }, []);
-
+export default function Home() {
   return (
-    cubeCount && (
-      <>
-        <Head>
-          <title>Sam Ageloff</title>
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width"
-          />
-          <meta
-            description="A product and UX-focused software engineer, web developer and
-            technical leader, with 20 years experience."
-          />
-        </Head>
-        <VStack
-          position="fixed"
-          zIndex="3"
-          height="100vh"
-          p={4}
-          gap={2}
-          bg="blackAlpha.500"
-        >
-          <Heading
-            as="h1"
-            lineHeight={1}
-            fontSize="18vw"
-            color="whiteAlpha.600"
+    <>
+      <Head>
+        <title>Sam Ageloff</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="description"
+          content="A product and UX-focused software engineer, web developer and technical leader, with 20 years experience."
+        />
+      </Head>
+      <Box minHeight="100vh" display="flex" alignItems="center">
+        <Container maxW="container.xl" py={[12, 20]}>
+          <Flex
+            direction={["column-reverse", "row"]}
+            gap={[10, 16]}
+            align="center"
+            justify="space-between"
           >
-            Sam Ageloff
-            <Text as="span" fontSize="md">
-              {yPos === 0 ? "-" : yPos}
-            </Text>
-          </Heading>
-          <Text
-            color="whiteAlpha.600"
-            width="100%"
-            fontSize={["auto", "1.5vw"]}
-          >
-            A product and UX-focused software engineer, web developer and
-            technical leader, with 20 years experience.
-          </Text>
-        </VStack>
-        <Box
-          height={typeof window !== "undefined" && window.innerHeight * 2}
-          bg="black"
-          position="relative"
-        >
-          <SimpleGrid
-            columns={columnCount}
-            variants={container}
-            as={motion.ul}
-            height="100vh"
-            width="100vw"
-            initial="hidden"
-            animate="show"
-            position="fixed"
-            top="0"
-            zIndex="2"
-            sx={{
-              "grid-gap": `${yPos}px`,
-            }}
-          >
-            <CubeList cubeCount={cubeCount} yPos={yPos} />
-          </SimpleGrid>
-          <Box
-            position="fixed"
-            bottom={4}
-            right={4}
-            bg="blackAlpha.600"
-            zIndex="3"
-          >
-            <UnorderedList
-              listStyleType="none"
-              display="flex"
-              gap={2}
-              p={2}
-              m={0}
+            <VStack align="flex-start" gap={6} flex={1} maxW={["100%", "560px"]}>
+              <Box>
+                <Text
+                  fontSize={["sm", "md"]}
+                  fontWeight="semibold"
+                  letterSpacing="widest"
+                  textTransform="uppercase"
+                  color="blackAlpha.600"
+                  mb={2}
+                >
+                  Software Engineer &amp; Technical Leader
+                </Text>
+                <Heading
+                  as="h1"
+                  fontSize={["4xl", "6xl"]}
+                  fontWeight="bold"
+                  lineHeight={1.05}
+                  color="blackAlpha.900"
+                >
+                  Sam Ageloff
+                </Heading>
+              </Box>
+
+              <Text fontSize={["md", "lg"]} color="blackAlpha.700" lineHeight={1.7}>
+                A product and UX-focused engineer with 20 years of experience
+                bridging design and technology. I build thoughtful, performant
+                web products — leading teams and driving quality from concept to
+                shipped code.
+              </Text>
+
+              <Flex wrap="wrap" gap={2}>
+                {expertise.map((label) => (
+                  <Tag
+                    key={label}
+                    size="md"
+                    bg="blackAlpha.100"
+                    color="blackAlpha.800"
+                    fontWeight="medium"
+                    borderRadius="full"
+                    px={3}
+                    py={1}
+                  >
+                    {label}
+                  </Tag>
+                ))}
+              </Flex>
+
+              <HStack gap={5} pt={2}>
+                <Link
+                  href="https://www.linkedin.com/in/samageloff/"
+                  target="_blank"
+                  fontWeight="semibold"
+                  color="blackAlpha.800"
+                  borderBottom="2px solid"
+                  borderColor="blackAlpha.400"
+                  pb="1px"
+                  _hover={{ borderColor: "blackAlpha.800" }}
+                >
+                  LinkedIn
+                </Link>
+                <Link
+                  href="resume.pdf"
+                  target="_blank"
+                  fontWeight="semibold"
+                  color="blackAlpha.800"
+                  borderBottom="2px solid"
+                  borderColor="blackAlpha.400"
+                  pb="1px"
+                  _hover={{ borderColor: "blackAlpha.800" }}
+                >
+                  Resume
+                </Link>
+              </HStack>
+            </VStack>
+
+            <Box
+              width={["140px", "220px"]}
+              height={["140px", "220px"]}
+              borderRadius="full"
+              overflow="hidden"
+              flexShrink={0}
+              boxShadow="lg"
             >
-              <ListItem
-                as={Link}
-                zIndex={1}
-                href="resume.pdf"
-                target="_blank"
-                color="white"
-              >
-                Resume
-              </ListItem>
-              <ListItem
-                as={Link}
-                zIndex={1}
-                href="https://www.linkedin.com/in/samageloff/"
-                target="_blank"
-                color="white"
-              >
-                LinkedIn
-              </ListItem>
-            </UnorderedList>
-          </Box>
-        </Box>
-      </>
-    )
+              <Image
+                src="author.jpg"
+                alt="Sam Ageloff"
+                width="100%"
+                height="100%"
+                objectFit="cover"
+              />
+            </Box>
+          </Flex>
+        </Container>
+      </Box>
+    </>
   );
 }
